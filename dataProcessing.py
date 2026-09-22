@@ -16,7 +16,7 @@ class dataProcessing:
 
         data = self.__clean_special_characters(df)
         data = self.__convert_salaries(data)
-        data = self.__remove_stopwords_and_lematize(self, df)
+        data = self.__remove_stopwords_and_lematize(data)
 
         #Convert categories into one-hot booleans
         fatores_df = data['Fatores de Risco'].str.get_dummies(", ", 'bool')
@@ -75,7 +75,7 @@ class dataProcessing:
             filtered_descrpition = " ".join(filtered_tokens)
             lematized_description = nlp(filtered_descrpition)
             lematized_tokens = [token.lemma_ for token in lematized_description]
-            df.at[i, 'Descricao Processada'] = " ".join(lematized_tokens)
+            df.at[i, 'Descricao'] = " ".join(lematized_tokens)
         return df
 
 
@@ -84,4 +84,4 @@ class dataProcessing:
             
 
 
-oi = dataProcessing("data.csv").process_data().to_csv("lematizado.csv")
+oi = dataProcessing("data.csv").process_data().to_csv("data_preprocessed.csv")
